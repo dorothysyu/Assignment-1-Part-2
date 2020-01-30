@@ -49,9 +49,7 @@ public:
 		}
 		else {
 			this->back = (this->back + 1) % this->size;
-			std::cout << this->back << "\n";
 			this->objects[this->back] = o;
-			std::cout << "added object to array of object ponters" << "\n";
 			this->num_objects++;
 		}
 	}
@@ -59,7 +57,7 @@ public:
 	// Gets and removes the next Object from the Queue
 	virtual Object* dequeue() {
 		if (this->isEmpty()) {
-			exit(1);
+			exit(2);
 		}
 
 		else {
@@ -73,7 +71,7 @@ public:
 	// Gets the next Object from the Queue without removing it
 	virtual Object* peek() {
 		if (this->num_objects == 0) {
-			exit(1);
+			exit(3);
 		}
 		return this->objects[this->front];
 	}
@@ -97,7 +95,6 @@ public:
 	// Determines if the Queue is empty
 	virtual bool isEmpty() {
 		return (this->num_objects == 0);
-
 	}
 
 	// Clears the queue of all elements
