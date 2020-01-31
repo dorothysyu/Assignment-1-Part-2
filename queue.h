@@ -52,12 +52,23 @@ public:
 	// Hashes the queue 
 	virtual size_t hash() {		
 		size_t hash = 0;
-		for (int n=this->front; n<num_objects; n++) {
-			std::cout << this->objects[n] << "\n";
-			hash += (this->objects[n]->hash());
-			n = (n + 1) % this->size;
+		// for (int n=this->front; n<num_objects; n++) {
+		// 	std::cout << this->objects[n] << "\n";
+		// 	hash += (this->objects[n]->hash());
+		// 	n = (n + 1) % this->size;
+		// }
+		for (int i = 0; i < this->size; i++) {
+			int index = (i + this->front) % size;
+			std::cout << "queue: " << this << "\n";
+			std::cout << "front: " << this->front << "\n";
+			std::cout << "size: " << this->size << "\n";
+			std::cout << "index: " <<  index << "\n";
+			std::cout << "object: " <<  this->objects[index] << "\n";
+		 	hash += (this->objects[index]->hash());
 		}
 		return hash;
+
+
 	}
 
 	// Adds the given Object to the Queue

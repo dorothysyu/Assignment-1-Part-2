@@ -124,7 +124,7 @@ void Test5() {
     q2->enqueue(o);
 
     result &= (q1->equals(q2));
-    result &= (q1->hash() == q2->hash());
+    result &= (q1->hash() == q2->hash());/*
 
     q2->enqueue(o2);
 
@@ -139,7 +139,7 @@ void Test5() {
 
     result &= (!q1->equals(q2));
     result &= (q1->hash() != q2->hash());
-/*
+
     printf("%d\n", result);
 
     delete q1;
