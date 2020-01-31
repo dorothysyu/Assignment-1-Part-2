@@ -10,10 +10,11 @@ public:
 	Object() {}
 
 	// Destructor
-	~Object() {}
+	virtual ~Object() {
+	}
 
 	// Determines whether this object is equal to the given object
-	virtual bool equals(Object* that) {}
+	virtual bool equals(Object* that) {	}
 
 	// Hashes this object
 	virtual size_t hash() {}

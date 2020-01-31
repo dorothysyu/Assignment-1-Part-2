@@ -26,20 +26,38 @@ public:
 
 	// Destructor
 	virtual ~Queue() {
-		for (int n=this->front; n<size; n++) {
-			 delete this->objects[n];
-			n = (n + this->size - 1) % this->size;
-		}
-		delete [] this;
+		// for (int n=this->front; n<num_objects;n++) {
+		// 	delete this->objects[n];
+		// 	n = (n + this->num_objects - 1) % this->num_objects;
+		// }
+		// delete[] this;
+		delete [] this->objects;
 	}
 
 	// Determines if this Queue is equal to the given queue
 	virtual bool equals(Object* that) {
-
+		Queue* other_q = dynamic_cast<Queue*>(that);
+		if (other_q == nullptr) { return 0; }
+		if (this->num_objects != other_q->num_objects) { return 0; }
+		else {
+			bool equal = true;
+			for (int n=this->front; n<num_objects; n++) {
+				equal &= (this->objects[n]->equals(other_q->objects[n]));
+				n = (n + this->size - 1) % this->size;
+			}
+			return equal;
+		}
 	}
 
 	// Hashes the queue 
-	virtual size_t hash() {
+	virtual size_t hash() {		
+		size_t hash = 0;
+		for (int n=this->front; n<num_objects; n++) {
+			std::cout << this->objects[n] << "\n";
+			hash += (this->objects[n]->hash());
+			n = (n + 1) % this->size;
+		}
+		return hash;
 	}
 
 	// Adds the given Object to the Queue
@@ -101,7 +119,7 @@ public:
 	virtual void clear() {
 		for (int i = 0; i < this->current_size(); ++i) {
 			this->num_objects--;
-			delete this->objects[i];
+			this->objects[i] = nullptr;
 		}
 	}
 };
@@ -125,11 +143,11 @@ class StrQueue: public Queue {
 
 	// Destructor
 	~StrQueue() {
-		for (int n=this->front; n<size; n++) {
-			 delete this->objects[n];
-			n = (n + this->size - 1) % this->size;
-		}
-		delete [] this;	
+		// for (int n=this->front; n<size; n++) {
+		// 	 delete this->objects[n];
+		// 	n = (n + this->size - 1) % this->size;
+		// }
+		delete [] this->objects;	
 	}
  
   	// Adds the given String to the Queue
@@ -140,6 +158,7 @@ class StrQueue: public Queue {
   	// Gets and removes the next String from the Queue
 	String* dequeue() {
 		Queue::dequeue();
+		// dynamic_cast<String*>(Queue::dequeue());
 	}
   
   	// Gets the next String from the Queue without removing it
@@ -149,10 +168,23 @@ class StrQueue: public Queue {
 
 	// Hashes the queue 
 	virtual size_t hash() {
-		size_t hash = 0;
-		for (int n=this->front; n<size; n++) {
-			hash += this->objects[n]->hash();
-        	n=(n+1) % this->num_objects;
-    	}
+		Queue::hash();
+		// size_t hash = 0;
+		// //std::cout << this->peek() << "\n";
+		// //std::cout << this->peek() << "\n";
+		// Object* s = this->objects[this->front];
+		// this->peek();
+		// std::cout << "String objects:" << this->objects << "\n";
+		// std::cout << s << "\n";
+		// //std::cout << this->peek() << "\n";
+
+		// for (int n=this->front; n<num_objects; n++) {
+		// 	hash = 0;
+		// 	String* tmp = this->objects[this->front];
+		// 	// std::cout << tmp << "\n";
+		// 	// hash += (this->objects[n]->hash());
+		// 	n = (n + this->size - 1) % this->size;
+		// }
+		// return hash;
 	}
 };

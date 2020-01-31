@@ -22,7 +22,7 @@ public:
 	}
 
 	// Destructor
-	virtual ~String() {
+	~String() {
 		delete[] val_; 
 	}
 
@@ -36,7 +36,12 @@ public:
 	/** Returns 0 if strings are equal, >0 if this string is larger,               
 	 *  <0 otherwise */                                                            
 	int compare(String* tgt) { return strcmp(val_, tgt->val_); }
-		virtual size_t hash() {
+		
+	virtual size_t hash() {
+		size_t hash = 0;                                                             
+		for (size_t i = 0; i < size_; ++i)                                           
+		hash = val_[i] + (hash << 6) + (hash << 16) - hash;                        
+		return hash;    
 	}
 
 	const char* get_string() {
